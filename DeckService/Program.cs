@@ -1,16 +1,32 @@
-﻿namespace DeckService;
+using DeckService.Interfaces;
 
-public static class Program
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IDeckService, DeckService.Models.DeckService>();
+
+builder.Services.AddCors(
+	options =>
+		options.AddPolicy(
+			"CorsPolicy", policyBuilder => policyBuilder
+				.AllowCredentials()
+				.AllowAnyHeader()
+				.WithOrigins("http://localhost:443")));
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-	public static void Main()
-	{
-		var deckService = new Model.DeckService();
-		deckService.CreateDeck("My Deck");
-		deckService.ShuffleDeck("My Deck", Model.DeckService.Shuffle.Random);
-		deckService.ShuffleDeck("My Deck", Model.DeckService.Shuffle.ByHalf);
-		foreach (var card in deckService.GetDeck("My Deck").GetCards())
-		{
-			Console.WriteLine($"{card.Suit} {card.Rank}");
-		}
-	}
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();

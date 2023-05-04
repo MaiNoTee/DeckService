@@ -1,17 +1,11 @@
 ﻿using DeckService.Interfaces;
 
-namespace DeckService.Model;
+namespace DeckService.Models;
 
 public class DeckService : IDeckService
 {
-	Dictionary<string, Deck> Decks { get; }
+	static Dictionary<string, Deck> Decks { get; } = new();
 
-	public DeckService()
-	{
-		Decks = new Dictionary<string, Deck>();
-		
-	}
-	
 	public Deck GetDeck(string name)
 	{
 		return Decks[name];
@@ -31,7 +25,7 @@ public class DeckService : IDeckService
 	{
 		return Decks.Keys.ToList();
 	}
-	
+
 	public void ShuffleDeck(string name, Shuffle shuffle)
 	{
 		var deck = Decks[name];

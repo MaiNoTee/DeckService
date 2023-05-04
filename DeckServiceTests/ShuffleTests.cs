@@ -1,21 +1,22 @@
-﻿using DeckService.Model;
+﻿using DeckService.Models;
 
 namespace DeckServiceTests;
 
 public class ShuffleTests
 {
-	const string DeckName = "Test deck";
+	
 
 	[Test]
 	public void IsShuffledByRandomShuffle()
 	{
-		var deckService = new DeckService.Model.DeckService();
-		deckService.CreateDeck(DeckName);
-		var cardsBefore = new List<Card>(deckService.GetDeck(DeckName).GetCards());
+		const string deckName = "Test Deck 1";
+		var deckService = new DeckService.Models.DeckService();
+		deckService.CreateDeck(deckName);
+		var cardsBefore = new List<Card>(deckService.GetDeck(deckName).GetCards());
 
-		deckService.ShuffleDeck(DeckName, DeckService.Model.DeckService.Shuffle.Random);
+		deckService.ShuffleDeck(deckName, DeckService.Models.DeckService.Shuffle.Random);
 
-		var cardsAfter = deckService.GetDeck(DeckName).GetCards();
+		var cardsAfter = deckService.GetDeck(deckName).GetCards();
 
 		Assert.That(!cardsAfter.SequenceEqual(cardsBefore) && cardsAfter.Count == cardsBefore.Count);
 	}
@@ -23,13 +24,14 @@ public class ShuffleTests
 	[Test]
 	public void IsShuffledByShuffleByHalf()
 	{
-		var deckService = new DeckService.Model.DeckService();
-		deckService.CreateDeck(DeckName);
-		var cardsBefore = new List<Card>(deckService.GetDeck(DeckName).GetCards());
+		const string deckName = "Test Deck 2";
+		var deckService = new DeckService.Models.DeckService();
+		deckService.CreateDeck(deckName);
+		var cardsBefore = new List<Card>(deckService.GetDeck(deckName).GetCards());
 
-		deckService.ShuffleDeck(DeckName, DeckService.Model.DeckService.Shuffle.ByHalf);
+		deckService.ShuffleDeck(deckName, DeckService.Models.DeckService.Shuffle.ByHalf);
 
-		var cardsAfter = deckService.GetDeck(DeckName).GetCards();
+		var cardsAfter = deckService.GetDeck(deckName).GetCards();
 
 		Assert.That(!cardsAfter.SequenceEqual(cardsBefore) && cardsAfter.Count == cardsBefore.Count);
 	}

@@ -10,7 +10,7 @@ public class MainTests
 	[Test]
 	public void IsDeckCreated()
 	{
-		var deckService = new DeckService.Model.DeckService();
+		var deckService = new DeckService.Models.DeckService();
 		deckService.CreateDeck("Test deck");
 		Assert.That(deckService.GetDeckNames(), Is.Not.Empty);
 	}

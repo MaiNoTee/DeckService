@@ -1,4 +1,4 @@
-﻿namespace DeckService.Model;
+﻿namespace DeckService.Models;
 
 public class Card
 {
